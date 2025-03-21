@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - CodeCracker{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card bg-dark text-light border-secondary">
+            <div class="card-body">
+                <h1 class="mb-4">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Competitive Programming Dashboard
+                </h1>
+                <p class="lead">Track your progress across multiple competitive programming platforms.</p>
+                <div class="d-flex gap-2">
+                    <button id="refresh-data" class="btn btn-primary">
+                        <i class="fas fa-sync-alt me-1"></i> Refresh Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Platform Cards -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 bg-dark text-light border-secondary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-code me-2"></i>Codeforces
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if platform_data.codeforces.status == 'success' %}
+                <div class="d-flex align-items-center mb-3">
+                    <div class="display-4 me-3">{{ platform_data.codeforces.data.rating }}</div>
+                    <div>
+                        <div>Current Rating</div>
+                        <small class="text-muted">Max: {{ platform_data.codeforces.data.max_rating }}</small>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <div>Rank:</div>
+                        <div>{{ platform_data.codeforces.data.rank }}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>Problems Solved:</div>
+                        <div>{{ platform_data.codeforces.data.solved_count }}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>Submissions:</div>
+                        <div>{{ platform_data.codeforces.data.submissions }}</div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-exclamation-circle fa-3x mb-3 text-warning"></i>
+                    <p>{{ platform_data.codeforces.message }}</p>
+                    <a href="{{ url_for('profile') }}" class="btn btn-sm btn-outline-secondary">
+                        Add your Codeforces handle
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 bg-dark text-light border-secondary">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-code me-2"></i>LeetCode
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if platform_data.leetcode.status == 'success' %}
+                <div class="d-flex align-items-center mb-3">
+                    <div class="display-4 me-3">{{ platform_data.leetcode.data.ranking }}</div>
+                    <div>
+                        <div>Global Rank</div>
+                        <small class="text-muted">Reputation: {{ platform_data.leetcode.data.reputation }}</small>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <div>Problems Solved:</div>
+                        <div>{{ platform_data.leetcode.data.solved_count }}</div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-exclamation-circle fa-3x mb-3 text-warning"></i>
+                    <p>{{ platform_data.leetcode.message }}</p>
+                    <a href="{{ url_for('profile') }}" class="btn btn-sm btn-outline-secondary">
+                        Add your LeetCode handle
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Section -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-light border-secondary">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Problem Solving Progress</h5>
+            </div>
+            <div class="card-body">
+                <div id="problems-chart" style="height: 300px;">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card bg-dark text-light border-secondary">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Rating Trends</h5>
+            </div>
+            <div class="card-body">
+                <div id="rating-chart" style="height: 300px;">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('refresh-data').addEventListener('click', function() {
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Refreshing...';
+
+        fetch('{{ url_for("refresh_data") }}')
+            .then(response => response.json())
+            .then(data => {
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error refreshing data:', error);
+                alert('Failed to refresh data. Please try again.');
+            })
+            .finally(() => {
+                this.disabled = false;
+                this.innerHTML = '<i class="fas fa-sync-alt me-1"></i> Refresh Data';
+            });
+    });
+});
+</script>
+{% endblock %}

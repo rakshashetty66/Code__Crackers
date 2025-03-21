@@ -1,0 +1,132 @@
+/* CodeCracker - Competitive Programming Tracker
+   Main CSS styles */
+
+/* Dark theme overrides */
+body {
+    background-color: #121212;
+    color: #f8f9fa;
+}
+
+.card {
+    background-color: #212529;
+    border-color: #343a40;
+}
+
+.table {
+    color: #f8f9fa;
+}
+
+/* Custom styling */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.stats-card {
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Platform colors */
+.codeforces-color {
+    color: #1976d2;
+}
+
+.leetcode-color {
+    color: #28a745;
+}
+
+.codechef-color {
+    color: #dc3545;
+}
+
+/* Card hover effects */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+/* Custom badges */
+.badge {
+    font-weight: 500;
+    padding: 0.4em 0.6em;
+}
+
+/* Progress bars */
+.progress {
+    height: 8px;
+    margin-bottom: 1rem;
+    background-color: #343a40;
+}
+
+/* Charts container */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+/* Streak indicator */
+.streak-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.streak-active {
+    background-color: #28a745;
+}
+
+.streak-inactive {
+    background-color: #6c757d;
+}
+
+/* Avatar container */
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-badge {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #28a745;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+/* Problem difficulty indicators */
+.difficulty-easy {
+    color: #28a745;
+}
+
+.difficulty-medium {
+    color: #ffc107;
+}
+
+.difficulty-hard {
+    color: #dc3545;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 250px;
+    }
+}

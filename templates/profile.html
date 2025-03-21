@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - CodeCracker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card bg-dark text-light border-secondary">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i class="fas fa-user me-2"></i>User Profile
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4 mb-md-0">
+                        <div class="avatar-container mb-3">
+                            <img src="https://www.gravatar.com/avatar/{{ user.username|gravatar_hash }}?d=identicon&s=200"
+                                 class="img-fluid rounded-circle border border-light"
+                                 style="width: 150px; height: 150px;"
+                                 alt="User avatar">
+                        </div>
+                        <h4>{{ user.username }}</h4>
+                        <p class="text-muted">Member since {{ user.created_at|default('2025-01-01')|format_date }}</p>
+                    </div>
+                    <div class="col-md-8">
+                        <form method="post">
+                            <h5 class="mb-3">Platform Handles</h5>
+                            <div class="mb-3">
+                                <label for="codeforces_handle" class="form-label">
+                                    <i class="fas fa-code me-1 text-primary"></i> Codeforces Handle
+                                </label>
+                                <input type="text" class="form-control bg-dark text-light border-secondary"
+                                       id="codeforces_handle" name="codeforces_handle"
+                                       value="{{ user.handles.codeforces|default('') }}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="leetcode_handle" class="form-label">
+                                    <i class="fas fa-code me-1 text-success"></i> LeetCode Handle
+                                </label>
+                                <input type="text" class="form-control bg-dark text-light border-secondary"
+                                       id="leetcode_handle" name="leetcode_handle"
+                                       value="{{ user.handles.leetcode|default('') }}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="codechef_handle" class="form-label">
+                                    <i class="fas fa-code me-1 text-danger"></i> CodeChef Handle
+                                </label>
+                                <input type="text" class="form-control bg-dark text-light border-secondary"
+                                       id="codechef_handle" name="codechef_handle"
+                                       value="{{ user.handles.codechef|default('') }}">
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i> Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card bg-dark text-light border-secondary">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>Your Statistics
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h1 class="display-4">
+                                    {{ (user.stats.total_problems|default(0)) }}
+                                </h1>
+                                <p class="lead">Total Problems Solved</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h1 class="display-4">
+                                    {{ (user.stats.streak|default(0)) }}
+                                </h1>
+                                <p class="lead">Current Streak (days)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h1 class="display-4">
+                                    {{ (user.stats.contests|default(0)) }}
+                                </h1>
+                                <p class="lead">Contests Participated</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-secondary">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Add your platform handles and start solving problems to see your statistics here.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

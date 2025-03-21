@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if register %}Register{% else %}Login{% endif %} - CodeCracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card bg-dark text-light border-secondary">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    {% if register %}
+                    <i class="fas fa-user-plus me-2"></i>Create Account
+                    {% else %}
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('register' if register else 'login') }}">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control bg-dark text-light border-secondary" id="password" name="password" required>
+                    </div>
+
+                    {% if register %}
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control bg-dark text-light border-secondary" id="confirm_password" name="confirm_password" required>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">Platform Handles</h5>
+
+                    <div class="mb-3">
+                        <label for="codeforces_handle" class="form-label">
+                            <i class="fas fa-code me-1 text-primary"></i> Codeforces Handle
+                        </label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" id="codeforces_handle" name="codeforces_handle">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="leetcode_handle" class="form-label">
+                            <i class="fas fa-code me-1 text-success"></i> LeetCode Handle
+                        </label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" id="leetcode_handle" name="leetcode_handle">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="codechef_handle" class="form-label">
+                            <i class="fas fa-code me-1 text-danger"></i> CodeChef Handle
+                        </label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" id="codechef_handle" name="codechef_handle">
+                    </div>
+                    {% endif %}
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            {% if register %}Create Account{% else %}Login{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                {% if register %}
+                <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+                {% else %}
+                <p class="mb-0">Don't have an account? <a href="{{ url_for('register') }}">Create one</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
