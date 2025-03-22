@@ -23,7 +23,7 @@ CodeCracker is a web-based competitive programming tracker that fetches and visu
 
 📂 **Project Structure**  
 ```
-CodeCracker/
+Code__Crackers/
 │-- data/                   # JSON files for user data storage
 │   ├── user_123456.json
 │   ├── user_8943138178562.json
@@ -59,8 +59,8 @@ CodeCracker/
 ### **Steps**  
 1. **Clone the Repository**  
 ```sh
-git clone https://github.com/RakshaShetty/CodeCracker.git
-cd CodeCracker
+git clone https://github.com/RakshaShetty/Code__Crackers.git
+cd Code__Crackers
 ```
 
 2. **Create Virtual Environment (Optional but Recommended)**  
