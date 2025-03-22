@@ -96,7 +96,7 @@ http://127.0.0.1:5000/
 ---
 
 📸 **Screenshots**  
-### Dashboard View  
+### Login View  
 ![Login Page](static/images/login.png)
 
 ### Register View 
